@@ -1,22 +1,25 @@
 <template>
   <v-app>
-
-    <router-link to="/login">Log in</router-link>
-    <router-link to="/Register">Register</router-link>
-    <router-view></router-view>
-
+    <navbar/>
+    <v-main>
+      <router-view />
+    </v-main>
   </v-app>
 </template>
 
 <script>
 
+import Navbar from "@/components/navbar";
+
 export default {
   name: 'App',
 
-  components: {},
+  components: {Navbar},
 
   data: () => ({
     //
   }),
 };
 </script>
+<style lang="sass">
+</style>
