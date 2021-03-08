@@ -1,19 +1,16 @@
 <template>
-  <nav class="mr-3 " >
-    <v-app-bar-nav-icon v-show="!drawer" @click="drawer = !drawer"/>
+  <nav class="mr-3">
     <v-navigation-drawer
-        class="fill-height blue-grey darken-4"
+        class="blue-grey darken-4 fill-height"
         dark
         v-model="drawer"
-
     >
       <v-list rounded>
         <v-list-item
             v-for="item in items"
             :key="item.title"
-            :href="item.to"
+            link
             class="pl-10"
-            router :to="item.to"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -24,18 +21,6 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-
-      <template v-slot:append>
-        <div class="pa-2">
-          <v-btn
-              block
-              rounded
-              @click="drawer = !drawer"
-          >
-            Logout
-          </v-btn>
-        </div>
-      </template>
     </v-navigation-drawer>
   </nav>
 </template>
@@ -44,9 +29,9 @@ export default {
   data() {
     return {
       items: [
-        {title: 'Dashboard', icon: 'mdi-view-dashboard', to: '/'},
-        {title: 'Account', icon: 'mdi-account-box', to: '/login'},
-        {title: 'Admin', icon: 'mdi-gavel', to: '/register'}
+        {title: 'Dashboard', icon: 'mdi-view-dashboard'},
+        {title: 'Account', icon: 'mdi-account-box'},
+        {title: 'Admin', icon: 'mdi-gavel'},
       ],
       drawer: true
     }

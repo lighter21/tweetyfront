@@ -1,15 +1,34 @@
 <template>
-<add-post></add-post>
+  <div class="blue-grey darken-4 jebanegowno ">
+    <navbar/>
+    <content-container>
+      <add-post />
+      <post />
+      <post />
+      <post />
+      <post />
+    </content-container>
+    <sidebar-container />
+
+  </div>
 </template>
 
 <script>
 import AddPost from "@/components/add-post";
+import Navbar from "@/components/navbar";
+import ContentContainer from "@/components/content-container";
+import SidebarContainer from "@/components/sidebar-container";
+import Post from "@/components/post";
 export default {
   name: "Home",
-  components: {AddPost}
+  components: {Post, SidebarContainer, ContentContainer, Navbar, AddPost},
+
 }
 </script>
 
-<style scoped>
-
+<style lang="sass" scoped>
+.jebanegowno
+  display: flex
+  justify-content: center
+  height: 100%
 </style>

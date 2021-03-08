@@ -1,20 +1,14 @@
 <template>
-  <v-app>
-    <navbar/>
-    <v-main>
+  <v-app id="main-color">
       <router-view />
-    </v-main>
   </v-app>
 </template>
 
 <script>
 
-import Navbar from "@/components/navbar";
-
 export default {
   name: 'App',
-
-  components: {Navbar},
+  components: {},
 
   data: () => ({
     //
@@ -22,4 +16,6 @@ export default {
 };
 </script>
 <style lang="sass">
+#main-color
+  background-color: #263238
 </style>

@@ -1,27 +1,28 @@
 <template>
-
-  <v-card
-      class="px-3 mx-auto mt-10"
-      width="650"
-      flat
-      outlined
-  >
-    <v-row no-gutters class="pt-3">
-      <v-avatar
-          color="accent"
-          size="60"
-          class="mt-1"
-          autofocus
-      > SE</v-avatar>
-      <v-textarea
-          no-resize
-          rounded
-          filled
-          placeholder="What's up?"
-          class="ml-3"
-          :counter="300"
-      />
-    </v-row>
+  <div>
+    <v-card
+        class="px-3 blue-grey darken-4"
+        outlined
+        flat
+        elevation="1"
+    >
+      <v-row no-gutters class="pt-3">
+        <v-avatar
+            color="accent"
+            size="60"
+            class="mt-1"
+            autofocus
+        > SE</v-avatar>
+        <v-textarea
+            no-resize
+            rounded
+            filled
+            placeholder="What's up?"
+            class="ml-3"
+            :counter="300"
+            dark
+        />
+      </v-row>
       <v-card-actions style="height: 50px;">
         <v-btn
             color="primary"
@@ -32,7 +33,8 @@
             rounded
         >Tweet</v-btn>
       </v-card-actions>
-  </v-card>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -41,6 +43,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="sass" scoped>
 
 </style>

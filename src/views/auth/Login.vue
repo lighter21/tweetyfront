@@ -1,11 +1,11 @@
 <template>
-  <v-container>
+  <v-container class="blue-grey darken-4">
     <v-layout>
       <v-card
           outlined
           shaped
           elevation="2"
-          class="pa-5 mx-auto mt-10"
+          class="pa-5 mx-auto mt-10 blue-grey darken-4"
           width="500"
       >
         <v-card-title class="justify-center">Log in</v-card-title>
