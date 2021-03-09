@@ -113,12 +113,9 @@ export default {
       let data = {email: this.email, password: this.password}
       this.$store.dispatch('getCookie').then(() => {
         axios.post(`${this.$store.state.API}/api/login`, data)
-            .then((response) => {
-              this.$store.commit('setUser', response);
+            .then(() => {
               this.$store.commit('setLoginStatus');
               this.$router.push('/dashboard');
-              console.log(this.$store.state.User);
-              console.log(this.$store.state.Logged);
             })
       }).catch(error => {
         console.log(error);

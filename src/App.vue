@@ -1,6 +1,6 @@
 <template>
-  <v-app id="main-color" >
-      <router-view />
+  <v-app id="main-color">
+    <router-view/>
   </v-app>
 </template>
 
@@ -9,7 +9,6 @@
 export default {
   name: 'App',
   components: {},
-
   data: () => ({
     //
   }),

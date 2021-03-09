@@ -2,13 +2,13 @@
   <div class="blue-grey darken-4 jebanegowno ">
     <navbar/>
     <content-container>
-      <add-post />
-      <post />
-      <post />
-      <post />
-      <post />
+      <add-post/>
+      <post/>
+      <post/>
+      <post/>
+      <post/>
     </content-container>
-    <sidebar-container />
+    <sidebar-container/>
 
   </div>
 </template>
@@ -19,9 +19,25 @@ import Navbar from "@/components/navbar";
 import ContentContainer from "@/components/content-container";
 import SidebarContainer from "@/components/sidebar-container";
 import Post from "@/components/post";
+import axios from "axios";
+
 export default {
-  name: "Home",
+  name: "Dashboard",
   components: {Post, SidebarContainer, ContentContainer, Navbar, AddPost},
+  mounted() {
+    if (this.$store.state.Logged) {
+      this.$store.dispatch('getCookie').then(() => {
+        axios.get(`${this.$store.state.API}/api/user`)
+            .then((response) => {
+              this.$store.commit('setUser', response);
+              console.log(this.$store.state.User);
+            })
+      }).catch(error => {
+        console.log(error);
+      });
+    }
+
+  },
 
 }
 </script>

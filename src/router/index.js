@@ -3,15 +3,15 @@ import VueRouter from 'vue-router'
 import Login from "@/views/auth/Login";
 import Index from "@/views/Index";
 import Register from "@/views/auth/Register";
-import Home from "@/views/Home";
+import Dashboard from "@/views/Dashboard";
 
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/dashboard',
-        name: 'Home',
-        component: Home
+        name: 'Dashboard',
+        component: Dashboard
     },
     {
         path: '/',

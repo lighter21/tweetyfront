@@ -13,7 +13,7 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>Jane Smith</v-list-item-title>
+            <v-list-item-title>{{ User.name }}</v-list-item-title>
             <v-list-item-subtitle>Logged In</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -63,8 +63,12 @@ export default {
         {title: 'Register', icon: 'mdi-gavel', to: '/register'},
         {title: 'Logout test', icon: 'mdi-gavel', to: '/'}
       ],
-      drawer: true
+      drawer: true,
+      User: null,
     }
+  },
+  mounted() {
+    this.User = this.$store.state.User;
   },
   computed: {
     ...mapMutations(['clearUserData', 'setLoginStatus']),
@@ -79,7 +83,7 @@ export default {
               this.$store.commit('setLogoutStatus');
               console.log(this.$store.state.User);
               console.log(this.$store.state.Logged);
-              this.$router.push('/');
+              this.$router.push('/login');
             })
       }).catch(error => {
         console.log(error);
