@@ -1,5 +1,7 @@
 <template>
-
+<h1>
+  Logged out view
+</h1>
 </template>
 
 <script>

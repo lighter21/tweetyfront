@@ -136,18 +136,10 @@ export default {
       email: '',
       password: '',
       confirmPassword: '',
-
-      errors: {
-        nameErrors: '',
-        emailErrors: '',
-        passwordErrors: '',
-        confirmPasswordErrors: ''
-      }
     }
   },
   methods: {
     register() {
-
       let data = {
         name: this.name,
         email: this.email,

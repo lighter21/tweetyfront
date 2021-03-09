@@ -39,19 +39,20 @@
             <v-btn
                 block
                 color="primary"
-                @click="submit"
+                @click.prevent="submit"
             >
               Log In
             </v-btn>
           </v-card-actions>
           <v-card-actions
-            class="justify-center"
+              class="justify-center"
           >
             <router-link
                 to="/forgot-password"
                 class="mx-2 text-decoration-none"
             >
-              Forgot password</router-link>
+              Forgot password
+            </router-link>
             ·
             <router-link
                 to="/register"
@@ -67,17 +68,64 @@
 </template>
 
 <script>
+import {validationMixin} from "vuelidate";
+import {email, maxLength, minLength, required} from "vuelidate/lib/validators";
+import {mapMutations, mapState} from "vuex";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
+
 export default {
+  mixins: [validationMixin],
+
+  validations: {
+    email: {required, email},
+    password: {required, maxLength: maxLength(30), minLength: minLength(8)},
+  },
   name: "Login",
-  data()
-  {
+  data() {
     return {
-      password: ''
+      email: '',
+      password: '',
     }
+  },
+  computed: {
+    emailErrors() {
+      const errors = []
+      if (!this.$v.email.$dirty) return errors
+      !this.$v.email.email && errors.push('Must be valid e-mail')
+      !this.$v.email.required && errors.push('E-mail is required')
+      return errors
+    },
+    passwordErrors() {
+      const errors = []
+      if (!this.$v.password.$dirty) return errors
+      !this.$v.password.minLength && errors.push('Password must be at least 8 characters long')
+      !this.$v.password.maxLength && errors.push('Password must be at most 30 characters long')
+      !this.$v.password.required && errors.push('Password is required')
+      return errors
+    },
+    ...mapState(['API', 'Logged']),
+    ...mapMutations(['setLoginStatus', 'setCookie', 'setUser'])
+  },
+  methods: {
+    submit() {
+      let data = {email: this.email, password: this.password}
+      this.$store.dispatch('getCookie').then(() => {
+        axios.post(`${this.$store.state.API}/api/login`, data)
+            .then((response) => {
+              this.$store.commit('setUser', response);
+              this.$store.commit('setLoginStatus');
+              this.$router.push('/dashboard');
+              console.log(this.$store.state.User);
+              console.log(this.$store.state.Logged);
+            })
+      }).catch(error => {
+        console.log(error);
+      });
+    },
   }
 }
-
-
 </script>
 
 <style scoped>

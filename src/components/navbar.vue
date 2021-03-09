@@ -5,8 +5,19 @@
         class="fill-height blue-grey darken-4"
         dark
         v-model="drawer"
-
     >
+      <template v-slot:prepend>
+        <v-list-item two-line class="pl-10">
+          <v-list-item-avatar>
+            <img src="https://randomuser.me/api/portraits/women/81.jpg">
+          </v-list-item-avatar>
+
+          <v-list-item-content>
+            <v-list-item-title>Jane Smith</v-list-item-title>
+            <v-list-item-subtitle>Logged In</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
       <v-list rounded>
         <v-list-item
             v-for="item in items"
@@ -30,7 +41,7 @@
           <v-btn
               block
               rounded
-              @click="drawer = !drawer"
+              @click="logout"
           >
             Logout
           </v-btn>
@@ -40,17 +51,41 @@
   </nav>
 </template>
 <script>
+import {mapActions, mapMutations} from "vuex";
+import axios from "axios";
+
 export default {
   data() {
     return {
       items: [
-        {title: 'Dashboard', icon: 'mdi-view-dashboard', to: '/'},
-        {title: 'Account', icon: 'mdi-account-box', to: '/login'},
-        {title: 'Admin', icon: 'mdi-gavel', to: '/register'}
+        {title: 'Dashboard', icon: 'mdi-view-dashboard', to: '/dashboard'},
+        {title: 'login', icon: 'mdi-account-box', to: '/login'},
+        {title: 'Register', icon: 'mdi-gavel', to: '/register'},
+        {title: 'Logout test', icon: 'mdi-gavel', to: '/'}
       ],
       drawer: true
     }
   },
+  computed: {
+    ...mapMutations(['clearUserData', 'setLoginStatus']),
+    ...mapActions(['getCookie'])
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('getCookie').then(() => {
+        axios.post(`${this.$store.state.API}/api/logout`)
+            .then(() => {
+              this.$store.commit('clearUserData');
+              this.$store.commit('setLogoutStatus');
+              console.log(this.$store.state.User);
+              console.log(this.$store.state.Logged);
+              this.$router.push('/');
+            })
+      }).catch(error => {
+        console.log(error);
+      });
+    }
+  }
 }
 </script>
 

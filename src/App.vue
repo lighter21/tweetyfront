@@ -1,5 +1,5 @@
 <template>
-  <v-app id="main-color">
+  <v-app id="main-color" >
       <router-view />
   </v-app>
 </template>
@@ -18,4 +18,5 @@ export default {
 <style lang="sass">
 #main-color
   background-color: #263238
+
 </style>
