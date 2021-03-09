@@ -3,7 +3,6 @@
     <router-view/>
   </v-app>
 </template>
-
 <script>
 
 export default {
@@ -14,8 +13,8 @@ export default {
   }),
 };
 </script>
+
 <style lang="sass">
 #main-color
   background-color: #263238
-
 </style>

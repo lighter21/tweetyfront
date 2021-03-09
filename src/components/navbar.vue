@@ -59,9 +59,9 @@ export default {
     return {
       items: [
         {title: 'Dashboard', icon: 'mdi-view-dashboard', to: '/dashboard'},
-        {title: 'login', icon: 'mdi-account-box', to: '/login'},
-        {title: 'Register', icon: 'mdi-gavel', to: '/register'},
-        {title: 'Logout test', icon: 'mdi-gavel', to: '/'}
+        {title: 'Explore', icon: 'mdi-compass', to: '#'},
+        {title: 'Notifications', icon: 'mdi-bell', to: '#'},
+        {title: 'More', icon: 'mdi-dots-horizontal-circle', to: '#'}
       ],
       drawer: true,
       user: null,
