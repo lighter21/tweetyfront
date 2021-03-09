@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from "axios";
-
 axios.defaults.withCredentials = true;
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -31,20 +29,12 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        async getCookie({commit, state}) {
+        async generateCookie({commit, state}) {
             try {
                 const cookie = await axios.get(`${state.API}/sanctum/csrf-cookie`)
                 commit('setCookie', cookie)
             } catch (error) {
                 console.log(error);
-            }
-        },
-        async getUserData({commit, state}) {
-            try {
-                const user = await axios.get(`${state.API}/user`)
-                commit('setUser', user)
-            } catch (error) {
-                console.log(error)
             }
         },
         async login({commit, state}, credentials) {
@@ -66,7 +56,7 @@ export default new Vuex.Store({
         },
         async findUser({state, commit}) {
             try {
-                const user = await axios.get(`${state.API}/api/user`)
+                let user = await axios.get(`${state.API}/api/user`)
                 commit('setUser', user.data);
                 console.log(user.data);
             } catch (error) {
@@ -74,5 +64,5 @@ export default new Vuex.Store({
             }
 
         }
-    }
+    },
 })

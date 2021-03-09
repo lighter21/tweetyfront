@@ -14,7 +14,7 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>{{ user.name }}</v-list-item-title>
+            <v-list-item-title v-if="user">{{ user.name }}</v-list-item-title>
             <v-list-item-subtitle>Logged In</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -68,17 +68,17 @@ export default {
     }
   },
    async mounted() {
-    await this.$store.dispatch('getCookie');
+    await this.$store.dispatch('generateCookie');
     await this.$store.dispatch('findUser');
     this.user = this.$store.state.userData;
  },
   computed: {
     ...mapMutations(['clearUserData', 'setLoginStatus']),
-    ...mapActions(['getCookie'])
+    ...mapActions(['generateCookie'])
   },
   methods: {
     async logout() {
-      await this.$store.dispatch('getCookie');
+      await this.$store.dispatch('generateCookie');
       await this.$store.dispatch('logout');
       await this.$router.push('/login');
     },

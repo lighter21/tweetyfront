@@ -70,7 +70,7 @@
 <script>
 import {validationMixin} from "vuelidate";
 import {email, maxLength, minLength, required} from "vuelidate/lib/validators";
-import {mapMutations, mapState} from "vuex";
+import {mapActions, mapState} from "vuex";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
@@ -106,11 +106,11 @@ export default {
       return errors
     },
     ...mapState(['API', 'logged']),
-    ...mapMutations(['setLoginStatus', 'setCookie', 'setUser'])
+    ...mapActions(['generateCookie', 'login'])
   },
   methods: {
     async submit() {
-      await this.$store.dispatch('getCookie')
+      await this.$store.dispatch('generateCookie')
       await this.$store.dispatch('login', {email: this.email, password: this.password})
       await this.$router.push('/dashboard');
     },
