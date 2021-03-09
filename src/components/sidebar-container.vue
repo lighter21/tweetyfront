@@ -4,6 +4,8 @@
         class="blue-grey darken-4 fill-height"
         dark
         v-model="drawer"
+        app
+        right
     >
       <v-list rounded>
         <v-list-item

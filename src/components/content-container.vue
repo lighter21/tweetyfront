@@ -1,7 +1,7 @@
 <template>
 <div
   class="fill-height"
-  style="width: 600px"
+  style="width: 700px"
 >
   <slot>
 

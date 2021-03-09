@@ -105,21 +105,14 @@ export default {
       !this.$v.password.required && errors.push('Password is required')
       return errors
     },
-    ...mapState(['API', 'Logged']),
+    ...mapState(['API', 'logged']),
     ...mapMutations(['setLoginStatus', 'setCookie', 'setUser'])
   },
   methods: {
-    submit() {
-      let data = {email: this.email, password: this.password}
-      this.$store.dispatch('getCookie').then(() => {
-        axios.post(`${this.$store.state.API}/api/login`, data)
-            .then(() => {
-              this.$store.commit('setLoginStatus');
-              this.$router.push('/dashboard');
-            })
-      }).catch(error => {
-        console.log(error);
-      });
+    async submit() {
+      await this.$store.dispatch('getCookie')
+      await this.$store.dispatch('login', {email: this.email, password: this.password})
+      await this.$router.push('/dashboard');
     },
   }
 }

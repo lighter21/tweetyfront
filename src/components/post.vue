@@ -1,7 +1,6 @@
 <template>
   <v-card
       class="px-3 blue-grey darken-4"
-      width="650"
       flat
       outlined
   >

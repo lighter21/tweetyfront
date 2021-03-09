@@ -10,36 +10,69 @@ export default new Vuex.Store({
     state: {
         API: 'http://localhost:8000',
         cookie: '',
-        Logged: false,
-        User: {
-            type: Object
-        }
+        logged: false,
+        userData: null
     },
     mutations: {
         setCookie(state, response) {
             state.cookie = response;
         },
         setLoginStatus(state) {
-          state.Logged = true;
+            state.logged = true;
         },
         setLogoutStatus(state) {
-            state.Logged = false;
+            state.logged = false;
         },
         setUser(state, userData) {
-            state.User = userData;
+            state.userData = userData;
         },
         clearUserData(state) {
-            state.User = {};
+            state.userData = {};
         }
     },
     actions: {
-        getCookie({commit, state}) {
-            axios.get(`${state.API}/sanctum/csrf-cookie`)
-                .then(response => { commit('setCookie', response)})
+        async getCookie({commit, state}) {
+            try {
+                const cookie = await axios.get(`${state.API}/sanctum/csrf-cookie`)
+                commit('setCookie', cookie)
+            } catch (error) {
+                console.log(error);
+            }
         },
-        getUserData({commit, state}) {
-            axios.get(`${state.API}/user`)
-                .then(response => { commit('setUser', response)})
+        async getUserData({commit, state}) {
+            try {
+                const user = await axios.get(`${state.API}/user`)
+                commit('setUser', user)
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async login({commit, state}, credentials) {
+            try {
+                await axios.post(`${state.API}/api/login`, credentials)
+                commit('setLoginStatus');
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async logout({state, commit}) {
+            try {
+                await axios.post(`${state.API}/api/logout`)
+                commit('clearUserData');
+                commit('setLogoutStatus');
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async findUser({state, commit}) {
+            try {
+                const user = await axios.get(`${state.API}/api/user`)
+                commit('setUser', user.data);
+                console.log(user.data);
+            } catch (error) {
+                console.log(error)
+            }
+
         }
     }
 })
