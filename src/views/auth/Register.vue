@@ -139,17 +139,15 @@ export default {
     }
   },
   methods: {
-    register() {
+    async register() {
       let data = {
         name: this.name,
         email: this.email,
         password: this.password
       };
-      this.$store.dispatch('getCookie').then(() => {
-        axios.post(`${this.$store.state.API}/api/register`, data)
-      }).catch(error => {
-        console.log(error);
-      });
+      await this.$store.dispatch('generateCookie')
+      await this.$store.dispatch('register', data)
+      alert('Account created')
       this.clear();
     },
     clear() {

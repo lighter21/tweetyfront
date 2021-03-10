@@ -6,10 +6,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        API: 'http://localhost:8000',
+        API: 'http://localhost:8001',
         cookie: '',
         logged: false,
-        userData: null
+        userData: null,
+        timeline: null
     },
     mutations: {
         setCookie(state, response) {
@@ -26,6 +27,10 @@ export default new Vuex.Store({
         },
         clearUserData(state) {
             state.userData = {};
+        },
+        setTimeline(state, timeline) {
+            state.timeline = timeline.data;
+            console.log(state.timeline)
         }
     },
     actions: {
@@ -33,6 +38,13 @@ export default new Vuex.Store({
             try {
                 const cookie = await axios.get(`${state.API}/sanctum/csrf-cookie`)
                 commit('setCookie', cookie)
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async register({state}, credentials) {
+            try {
+                await axios.post(`${state.API}/api/register`, credentials)
             } catch (error) {
                 console.log(error);
             }
@@ -58,11 +70,25 @@ export default new Vuex.Store({
             try {
                 let user = await axios.get(`${state.API}/api/user`)
                 commit('setUser', user.data);
-                console.log(user.data);
             } catch (error) {
                 console.log(error)
             }
-
+        },
+        async addPost({state}, body) {
+            try {
+                console.log(body)
+                await axios.post(`${state.API}/api/tweets/add`, { body })
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async generateTimeline({state, commit}) {
+            try {
+               let timeline = await axios.get(`${state.API}/api/tweets/`)
+                commit('setTimeline', timeline)
+            } catch (error) {
+                console.log(error)
+            }
         }
     },
 })

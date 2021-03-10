@@ -4,9 +4,6 @@
     <content-container>
       <add-post/>
       <post/>
-      <post/>
-      <post/>
-      <post/>
     </content-container>
     <sidebar-container/>
 

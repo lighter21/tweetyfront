@@ -28,7 +28,7 @@
             class="align-content-center text-xl-body-2"
         >
           <v-list-item-icon>
-            <v-icon c>{{ item.icon }}</v-icon>
+            <v-icon >{{ item.icon }}</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
