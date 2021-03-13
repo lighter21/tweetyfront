@@ -48,7 +48,6 @@ export default {
   data() {
     return {
       body: '',
-      // disabled: true
     }
   },
   computed: {
@@ -60,6 +59,7 @@ export default {
     async addTweet() {
       await this.$store.dispatch('generateCookie')
       await this.$store.dispatch('addPost', this.body)
+      this.$forceUpdate();
     }
   }
 }

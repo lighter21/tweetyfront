@@ -20,6 +20,10 @@ export default new Vuex.Store({
             let post = state.timeline.findIndex( (item) => item.id === id )
             state.timeline.splice(post, 1)
         },
+        appendPost(state, id) {
+            let post = state.timeline.findIndex( (item) => item.id === id )
+            state.timeline.splice(post, 1)
+        },
         setLoginStatus(state) {
             state.logged = true;
         },
@@ -90,6 +94,15 @@ export default new Vuex.Store({
             try {
                 await axios.delete(`${state.API}/api/tweets/${id}/delete`)
                 commit('popPost', id)
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async editPost({state}, tweet) {
+            try {
+                console.log(tweet)
+                await axios.put(`${state.API}/api/tweets/${tweet.tweet.id}/update`, {id: tweet.tweet.id, body: tweet.body})
+                // commit('editPost', )
             } catch (error) {
                 console.log(error)
             }
