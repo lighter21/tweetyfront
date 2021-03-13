@@ -3,10 +3,9 @@
     <navbar/>
     <content-container>
       <add-post/>
-      <post/>
+      <post v-for="tweet in tweets" :key="tweet.id" :tweet="tweet" />
     </content-container>
     <sidebar-container/>
-
   </div>
 </template>
 
@@ -17,10 +16,20 @@ import ContentContainer from "@/components/content-container";
 import SidebarContainer from "@/components/sidebar-container";
 import Post from "@/components/post";
 
-
 export default {
   name: "Dashboard",
   components: {Post, SidebarContainer, ContentContainer, Navbar, AddPost},
+  data() {
+    return {
+      tweets: null
+    }
+  },
+  async mounted() {
+    await this.$store.dispatch('generateCookie')
+    await this.$store.dispatch('generateTimeline')
+    this.tweets = this.$store.state.timeline
+    console.log(this.tweets)
+  }
 }
 </script>
 

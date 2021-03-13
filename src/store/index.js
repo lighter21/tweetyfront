@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        API: 'http://localhost:8001',
+        API: 'http://localhost:8000',
         cookie: '',
         logged: false,
         userData: null,
@@ -15,6 +15,10 @@ export default new Vuex.Store({
     mutations: {
         setCookie(state, response) {
             state.cookie = response;
+        },
+        popPost(state, id) {
+            let post = state.timeline.findIndex( (item) => item.id === id )
+            state.timeline.splice(post, 1)
         },
         setLoginStatus(state) {
             state.logged = true;
@@ -78,6 +82,14 @@ export default new Vuex.Store({
             try {
                 console.log(body)
                 await axios.post(`${state.API}/api/tweets/add`, { body })
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async deletePost({state, commit}, id) {
+            try {
+                await axios.delete(`${state.API}/api/tweets/${id}/delete`)
+                commit('popPost', id)
             } catch (error) {
                 console.log(error)
             }
